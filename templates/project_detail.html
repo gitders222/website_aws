@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ project.title }}{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <img src="{{ url_for('static', filename='img/projects/' + project.image) }}" 
+                     class="img-fluid rounded mb-4" alt="{{ project.title }}">
+            </div>
+            <div class="col-md-4">
+                <h1>{{ project.title }}</h1>
+                <div class="mb-3">
+                    {% for tech in project.technologies %}
+                    <span class="badge bg-secondary me-1">{{ tech }}</span>
+                    {% endfor %}
+                </div>
+                <p>{{ project.description }}</p>
+                
+                <div class="d-grid gap-2 mb-4">
+                    {% if project.github_link %}
+                    <a href="{{ project.github_link }}" class="btn btn-dark" target="_blank">
+                        <i class="fab fa-github me-2"></i>View on GitHub
+                    </a>
+                    {% endif %}
+                    {% if project.live_link %}
+                    <a href="{{ project.live_link }}" class="btn btn-primary" target="_blank">
+                        <i class="fas fa-external-link-alt me-2"></i>View Live Demo
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-5">
+            <div class="col-12">
+                <h2>Project Details</h2>
+                <hr>
+                <!-- In a real implementation, you would have more detailed content here -->
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. 
+                   Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus 
+                   rhoncus ut eleifend nibh porttitor. Ut in nulla enim.</p>
+                
+                <p>Suspendisse dictum feugiat nisl ut dapibus. Mauris iaculis porttitor posuere. 
+                   Praesent id metus massa, ut blandit odio. Proin quis tortor orci. Etiam at risus 
+                   et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet.</p>
+                
+                <h3 class="mt-4">Key Features</h3>
+                <ul>
+                    <li>Feature 1 with detailed explanation</li>
+                    <li>Feature 2 with detailed explanation</li>
+                    <li>Feature 3 with detailed explanation</li>
+                    <li>Feature 4 with detailed explanation</li>
+                </ul>
+                
+                <h3 class="mt-4">Technical Challenges</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. 
+                   Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus 
+                   rhoncus ut eleifend nibh porttitor.</p>
+            </div>
+        </div>
+        
+        <div class="text-center mt-5">
+            <a href="{{ url_for('projects') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Back to Projects
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

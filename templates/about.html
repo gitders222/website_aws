@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}About Me{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <img src="{{ url_for('static', filename='img/profile.jpg') }}" alt="{{ info.name }}" 
+                     class="img-fluid rounded">
+            </div>
+            <div class="col-lg-8">
+                <h1>About Me</h1>
+                <p class="lead">{{ info.title }}</p>
+                <hr>
+                <p>{{ info.bio }}</p>
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <p><strong>Name:</strong> {{ info.name }}</p>
+                        <p><strong>Email:</strong> {{ info.email }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Location:</strong> {{ info.location }}</p>
+                        <p><strong>Phone:</strong> {{ info.phone }}</p>
+                    </div>
+                </div>
+                <div class="social-links mb-4">
+                    {% if info.social.github %}
+                    <a href="{{ info.social.github }}" target="_blank" class="me-3">
+                        <i class="fab fa-github fa-2x"></i>
+                    </a>
+                    {% endif %}
+                    {% if info.social.linkedin %}
+                    <a href="{{ info.social.linkedin }}" target="_blank" class="me-3">
+                        <i class="fab fa-linkedin fa-2x"></i>
+                    </a>
+                    {% endif %}
+                    {% if info.social.twitter %}
+                    <a href="{{ info.social.twitter }}" target="_blank" class="me-3">
+                        <i class="fab fa-twitter fa-2x"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                <a href="{{ url_for('static', filename='resume.pdf') }}" class="btn btn-primary" 
+                   target="_blank">Download Resume</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="mb-4">Skills</h2>
+        <div class="row">
+            {% for skill in skills %}
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ skill.name }}</h5>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: {{ skill.level }}%;" 
+                                 aria-valuenow="{{ skill.level }}" aria-valuemin="0" aria-valuemax="100">
+                                {{ skill.level }}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <h2 class="mb-4">Work Experience</h2>
+        <div class="timeline">
+            {% for exp in experience %}
+            <div class="timeline-item">
+                <div class="timeline-date">{{ exp.period }}</div>
+                <div class="timeline-content">
+                    <h4>{{ exp.position }}</h4>
+                    <h5>{{ exp.company }}</h5>
+                    <p>{{ exp.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="mb-4">Education</h2>
+        <div class="timeline">
+            {% for edu in education %}
+            <div class="timeline-item">
+                <div class="timeline-date">{{ edu.year }}</div>
+                <div class="timeline-content">
+                    <h4>{{ edu.degree }}</h4>
+                    <h5>{{ edu.institution }}</h5>
+                    <p>{{ edu.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

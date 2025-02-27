@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <h1 class="text-center mb-5">Contact Me</h1>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Contact Information</h5>
+                        <p><i class="fas fa-envelope me-2"></i>{{ info.email }}</p>
+                        <p><i class="fas fa-phone me-2"></i>{{ info.phone }}</p>
+                        <p><i class="fas fa-map-marker-alt me-2"></i>{{ info.location }}</p>
+                        
+                        <h5 class="mt-4">Connect With Me</h5>
+                        <div class="social-links">
+                            {% if info.social.github %}
+                            <a href="{{ info.social.github }}" target="_blank" class="me-3">
+                                <i class="fab fa-github fa-2x"></i>
+                            </a>
+                            {% endif %}
+                            {% if info.social.linkedin %}
+                            <a href="{{ info.social.linkedin }}" target="_blank" class="me-3">
+                                <i class="fab fa-linkedin fa-2x"></i>
+                            </a>
+                            {% endif %}
+                            {% if info.social.twitter %}
+                            <a href="{{ info.social.twitter }}" target="_blank" class="me-3">
+                                <i class="fab fa-twitter fa-2x"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Send Me a Message</h5>
+                        <form method="POST" action="{{ url_for('contact') }}">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Your Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Your Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

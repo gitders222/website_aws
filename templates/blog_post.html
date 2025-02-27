@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <article>
+            <header class="mb-4">
+                <h1>{{ post.title }}</h1>
+                <div class="text-muted">Posted on {{ post.date|format_date }}</div>
+            </header>
+            
+            <div class="blog-content">
+                {{ post.content|safe }}
+            </div>
+        </article>
+        
+        <div class="text-center mt-5">
+            <a href="{{ url_for('blog') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Back to Blog
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

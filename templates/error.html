@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Error {{ error_code }}{% endblock %}
+
+{% block content %}
+<section class="py-5 text-center">
+    <div class="container py-5">
+        <h1 class="display-1">{{ error_code }}</h1>
+        <h2 class="mb-4">{{ error_message }}</h2>
+        <p class="lead">Something went wrong. Let's get you back on track.</p>
+        <a href="{{ url_for('home') }}" class="btn btn-primary mt-3">
+            <i class="fas fa-home me-2"></i>Go to Homepage
+        </a>
+    </div>
+</section>
+{% endblock %}
