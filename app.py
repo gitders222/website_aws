@@ -4,6 +4,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 import os
 import json
 from datetime import datetime
+import folium
+
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # Change this to a secure random key in production
@@ -23,14 +25,14 @@ def load_data():
         # Return default data
         return {
             "personal_info": {
-                "name": "Your Name",
-                "title": "Web Developer & Designer",
-                "bio": "I'm a passionate web developer with expertise in modern technologies.",
-                "email": "your.email@example.com",
-                "phone": "+1 123 456 7890",
-                "location": "New York, NY",
+                "name": "Sverre Torp",
+                "title": "Cybernetic/Data Engineer",
+                "bio": "I'm a passionate developer with expertise in modern technologies.",
+                "email": "anders.ullsfoss.torp@example.com",
+                "phone": "+47 97736430",
+                "location": "Oslo, NO",
                 "social": {
-                    "github": "https://github.com/yourusername",
+                    "github": "https://github.com/gitders222",
                     "linkedin": "https://linkedin.com/in/yourusername",
                     "twitter": "https://twitter.com/yourusername"
                 }
@@ -38,7 +40,7 @@ def load_data():
             "projects": [
                 {
                     "id": 1,
-                    "title": "E-commerce Platform",
+                    "title": "GIS-map",
                     "description": "A full-featured e-commerce platform with payment processing.",
                     "technologies": ["Python", "Flask", "JavaScript", "PostgreSQL"],
                     "image": "ecommerce.jpg",
@@ -203,6 +205,38 @@ def testimonials():
     return render_template('testimonials.html', 
                            info=data['personal_info'],
                            testimonials=data['testimonials'])
+
+@app.route('/gis')
+def gis():
+    # Create a Folium map centered at a location
+    m = folium.Map(location=[59.9127, 10.7460], zoom_start=3)
+
+    # List of GeoJSON URLs
+    geojson_urls = [
+        "https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA.geo.json",
+        "https://raw.githubusercontent.com/johan/world.geo.json/master/countries/NOR.geo.json",
+        "https://raw.githubusercontent.com/johan/world.geo.json/master/countries/DEU.geo.json"
+    ]
+
+    # Loop through URLs and add GeoJSON layers
+    for url in geojson_urls:
+        folium.GeoJson(
+            url,
+            name=f"GeoJSON Layer {url.split('/')[-1].split('.')[0]}",  # Extracts country code as name
+            tooltip=folium.GeoJsonTooltip(fields=["name"], aliases=["Country"])
+        ).add_to(m)
+
+    # Add a Layer Control to toggle layers
+    folium.LayerControl().add_to(m)
+
+    # Save map to an HTML file
+    map_html = "static/map.html"
+    m.save(map_html)
+    data = load_data()
+
+    return render_template('gis.html', map_file=map_html, info=data['personal_info'])
+
+
 
 # Admin routes (basic implementation - would need proper authentication in production)
 @app.route('/admin', methods=['GET', 'POST'])

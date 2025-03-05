@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}GIS Showcase{% endblock %}
+
+{% block content %}
+    <h2 style="text-align: center;">GIS Data Visualization</h2>
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <iframe src="{{ map_file }}" width="95%" height="500px" style="border: none;"></iframe>
+    </div>
+{% endblock %}

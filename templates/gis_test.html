@@ -1,0 +1,32 @@
+
+{% extends "base.html" %}
+
+{% block title %}GIS{% endblock %}
+
+{% block content %}
+    <h2>GIS Data Visualization</h2>
+    <div id="map"></div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        var map = L.map('map').setView([40.7128, -74.0060], 10); // New York City Coordinates
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+        L.marker([40.7128, -74.0060]).addTo(map).bindPopup("Example GIS Location").openPopup();
+    </script>
+{% endblock %}
+
+
+
+
+
+{% extends "base.html" %}
+
+{% block title %}GIS Map{% endblock %}
+
+{% block content %}
+    <h2 style="margin-top: 20px;">Interactive GIS Map</h2>
+    <div id="map-container" style="width: 90%; max-width: 1000px; height: 600px; margin: 20px auto; border: 2px solid #ddd; border-radius: 10px; overflow: hidden;">
+        {{ map_html|safe }}
+    </div>
+{% endblock %}
